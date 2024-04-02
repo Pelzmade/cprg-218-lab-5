@@ -33,12 +33,26 @@ updateNewsBtn?.addEventListener('click', async () => {
     .then(function(response) {
         console.log(response.json());})
 
+fetch ('https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9ac840baf26b48718e75d0e7850c982a')
+        .then (res => {
+          if (res.ok) {
+            console.log('SUCCESS') }
+          else {
+            console.log('NOT SUCCESSFUL');
+          }})
+
 /* Option 1 RENDER RESULTS */   
  
-function renderNewsArticles(newsList) {
+async function renderNewsArticles(newsList) {
   const newsContainer = document.getElementById('news-container');
-}
+  if (newsList.length == 0) {
+    const documentElement = document.createElement('dropdown');
+    documentElementElement.textContent = 'No news';
+    newsContainer.appendChild(documentElementElement);
+} else {
+    const container = document.createElement('dropdown'); 
 
+}}
 
 /*
 async function renderOption1Dropdown() {
