@@ -2,10 +2,16 @@
 .option-container {
   background-color: lightgray;
 }
-.news-container {
+.option-1 {
   background-color: yellow;
   text-align: center;
 }
+
+.search-wrapper {
+  background-color: yellow;
+  text-align: center;
+}
+
 .card-container {
     display: flex;
     flex-wrap: wrap;

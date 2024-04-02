@@ -52,7 +52,43 @@ async function renderNewsArticles(newsList) {
 } else {
     const container = document.createElement('dropdown'); 
 
-}}
+    newsList.forEach(newsItem => {
+        const newsItemElement = document.createElement('dropdown');
+        newsItemElement.textContent = newsItem.title;
+        container.appendChild(newsItemElement);
+    });newsContainer.appendChild(container);}}
+
+/* Option 2 RENDER RESULTS */ 
+const userCardTemplate = document.querySelector("[data-user-template]");
+const userCardsContainer = document.querySelector("[data-user-cards-container]");
+const searchInput = document.querySelector("[data-search]");
+
+let articles = []; // Changed from 'data' to 'articles' to avoid confusion with the fetched data
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value;
+  console.log(value);
+  console.log(articles); // Logging 'articles' instead of 'data'
+});
+
+fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey=9ac840baf26b48718e75d0e7850c982a")
+  .then(res => res.json())
+  .then(data => {
+    articles = data.articles; // Assigning fetched articles to the 'articles' variable
+
+    articles.forEach(article => {
+      const card = userCardTemplate.content.cloneNode(true).querySelector(".news-card");
+      const header = card.querySelector("[data-header]");
+      const body = card.querySelector("[data-body]");
+      header.textContent = article.title;
+      body.textContent = article.description;
+      userCardsContainer.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching news:', error);
+  });
+
 
 /*
 async function renderOption1Dropdown() {
