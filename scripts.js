@@ -8,8 +8,7 @@ console.log("Hello World")
 async function fetchNewsList(selectedCountry) {
   try {
     const apiKey = '9ac840baf26b48718e75d0e7850c982a';
-    const url = `https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9ac840baf26b48718e75d0e7850c982a`;
-    const response = await fetch(url); 
+    const response = await fetch(`https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9ac840baf26b48718e75d0e7850c982a`); 
     const data = await response.json(); 
     if (data.articles) {
     return data.articles;
@@ -55,6 +54,7 @@ async function renderNewsArticles(newsList) {
     newsList.forEach(newsItem => {
         const newsItemElement = document.createElement('dropdown');
         newsItemElement.textContent = newsItem.title;
+        
         container.appendChild(newsItemElement);
     });newsContainer.appendChild(container);}}
 
@@ -63,18 +63,18 @@ const userCardTemplate = document.querySelector("[data-user-template]");
 const userCardsContainer = document.querySelector("[data-user-cards-container]");
 const searchInput = document.querySelector("[data-search]");
 
-let articles = []; // Changed from 'data' to 'articles' to avoid confusion with the fetched data
+let articles = [];
 
 searchInput.addEventListener("input", (e) => {
   const value = e.target.value;
   console.log(value);
-  console.log(articles); // Logging 'articles' instead of 'data'
+  console.log(articles); 
 });
 
 fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey=9ac840baf26b48718e75d0e7850c982a")
   .then(res => res.json())
   .then(data => {
-    articles = data.articles; // Assigning fetched articles to the 'articles' variable
+    articles = data.articles; 
 
     articles.forEach(article => {
       const card = userCardTemplate.content.cloneNode(true).querySelector(".news-card");
@@ -86,8 +86,38 @@ fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey
     });
   })
   .catch(error => {
-    console.error('Error fetching news:', error);
+    console.error('No news:', error);
   });
+
+/* Option 2 v2 RENDER RESULTS */ 
+
+const searchForm =document.querySelector('.search');
+const input =document.querySelector ('.input');
+const newsList =document.querySelector ('.news-list')
+
+searchForm.addEventListener ('submit', retrieve)
+
+function retrieve (e) {
+  e.preventDefault ()
+  const api ='9ac840baf26b48718e75d0e7850c982a'
+  let topic = input.value;
+  let url = "https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}"
+  
+  fetch (url).then((res)=>{
+  return res.json()
+})
+.then((data) =>
+console.log=(data)
+data.articles.forEach(article=>{
+  let li =document.createElement('li');
+  let a = document.createElement('a');
+  a.setAttribute('href', article.url);
+  a.setAttribute('target', '_blank');
+  a.textContent=article.title;
+  li.appendChild(a);
+  newsList.appendChild(li);
+})
+})
 
 
 /*
