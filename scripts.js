@@ -1,14 +1,14 @@
+console.log('HELLO WORLD')
 
-console.log("Hello World")
 
-/*NEWS API KEY 9ac840baf26b48718e75d0e7850c982a*/
+/*NEWS API KEY 7fe1aa759e3546b58455d76d1e6c788a*/
 
 /*OPTION 1 create an asynchronous function using the syntax async function myFunctionName(). This function should use fetch() to make a request to an API endpoint, and then return a piece of data from that endpoint’s response.*/
 
 async function fetchNewsList(selectedCountry) {
   try {
     const apiKey = '9ac840baf26b48718e75d0e7850c982a';
-    const response = await fetch(`https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9ac840baf26b48718e75d0e7850c982a`); 
+    const response = await fetch(`https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=7fe1aa759e3546b58455d76d1e6c788a`); 
     const data = await response.json(); 
     if (data.articles) {
     return data.articles;
@@ -28,11 +28,11 @@ updateNewsBtn?.addEventListener('click', async () => {
 
  /* Option 1 PROMISE*/
 
- fetch ('https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9ac840baf26b48718e75d0e7850c982a')
+ fetch ('https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=7fe1aa759e3546b58455d76d1e6c788a')
     .then(function(response) {
         console.log(response.json());})
 
-fetch ('https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9ac840baf26b48718e75d0e7850c982a')
+fetch ('https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=7fe1aa759e3546b58455d76d1e6c788a')
         .then (res => {
           if (res.ok) {
             console.log('SUCCESS') }
@@ -40,7 +40,7 @@ fetch ('https://newsapi.org/v2/top-headlines?country=${selectedCountry}&apiKey=9
             console.log('NOT SUCCESSFUL');
           }})
 
-/* Option 1 RENDER RESULTS */   
+/* Option 1 RENDER RESULTS*/    
  
 async function renderNewsArticles(newsList) {
   const newsContainer = document.getElementById('news-container');
@@ -58,7 +58,7 @@ async function renderNewsArticles(newsList) {
         container.appendChild(newsItemElement);
     });newsContainer.appendChild(container);}}
 
-/* Option 2 RENDER RESULTS */ 
+/* Option 2 RENDER RESULTS */
 const userCardTemplate = document.querySelector("[data-user-template]");
 const userCardsContainer = document.querySelector("[data-user-cards-container]");
 const searchInput = document.querySelector("[data-search]");
@@ -71,7 +71,7 @@ searchInput.addEventListener("input", (e) => {
   console.log(articles); 
 });
 
-fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey=9ac840baf26b48718e75d0e7850c982a")
+fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey=7fe1aa759e3546b58455d76d1e6c788a")
   .then(res => res.json())
   .then(data => {
     articles = data.articles; 
@@ -91,35 +91,40 @@ fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey
 
 /* Option 2 v2 RENDER RESULTS */ 
 
-const searchForm =document.querySelector('.search');
-const input =document.querySelector ('.input');
-const newsList =document.querySelector ('.news-list')
+const searchForm = document.querySelector('.search');
+const input = document.querySelector('.input');
+const newsList = document.querySelector('.news-list');
 
-searchForm.addEventListener ('submit', retrieve)
+searchForm.addEventListener('submit', retrieve);
 
-function retrieve (e) {
-  e.preventDefault ()
-  const api ='9ac840baf26b48718e75d0e7850c982a'
+function retrieve(e) {
+  e.preventDefault();
+
+  const api = '7fe1aa759e3546b58455d76d1e6c788a';
   let topic = input.value;
-  let url = "https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}"
+
+  let url = `https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`;  
   
-  fetch (url).then((res)=>{
-  return res.json()
-})
-.then((data) =>
-console.log=(data)
-data.articles.forEach(article=>{
-  let li =document.createElement('li');
-  let a = document.createElement('a');
-  a.setAttribute('href', article.url);
-  a.setAttribute('target', '_blank');
-  a.textContent=article.title;
-  li.appendChild(a);
-  newsList.appendChild(li);
-})
-})
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      data.articles.forEach(article => {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.setAttribute('href', article.url);
+        a.setAttribute('target', '_blank');
+        a.textContent = article.title;
+        li.appendChild(a);
+        newsList.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+}
 
-
+  
 /*
 async function renderOption1Dropdown() {
 const select = document.getElementById("dropdown");
@@ -143,31 +148,7 @@ function ButtonClickHandler() {
 fetchNewsList().then((results) => console.log(results));
 
 
-/*POKEMON ORIGINAL/**
- * Create one card from item data.
- 
-function createCardElement(item) {
-  return `
-      <li class="card">
-          <img src=${item.image} alt="">
-          <div class="card-content">
-              <p class="subheader">
-                  ${item.subtitle}
-              </p>
-              <h3 class="header">
-                  ${item.title}
-              </h3>
-          </div>
-      </li>
-    `;
-}
 
-/**
- * Create multiple cards from array of item data.
- 
-function createCardElements(data) {
-  return data.map(createCardElement).join("");
-}
 
 /**
  * Fetch list of pokemon names and urls.
@@ -334,6 +315,4 @@ function searchbarEventHandler() {
 const searchbar = document.getElementById("searchbar");
 searchbar.addEventListener("keyup", searchbarEventHandler);
 
-myFunctionName().then((results) => console.log(results));
-
-*/
+myFunctionName().then((results) => console.log(results));*/
