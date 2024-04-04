@@ -49,12 +49,11 @@ async function renderNewsArticles(newsList) {
     documentElementElement.textContent = 'No news';
     newsContainer.appendChild(documentElementElement);
 } else {
-    const container = document.createElement('dropdown'); 
+    const container = document.createElement('ul'); 
 
     newsList.forEach(newsItem => {
-        const newsItemElement = document.createElement('dropdown');
-        newsItemElement.textContent = newsItem.title;
-        
+        const newsItemElement = document.createElement('li');
+        newsItemElement.innerHTML = `<a href="${newsItem.url}">${newsItem.title}</a>`;
         container.appendChild(newsItemElement);
     });newsContainer.appendChild(container);}}
 
@@ -75,6 +74,7 @@ fetch("https://newsapi.org/v2/top-headlines?country=yourCountryCodeOrName&apiKey
   .then(res => res.json())
   .then(data => {
     articles = data.articles; 
+    
 
     articles.forEach(article => {
       const card = userCardTemplate.content.cloneNode(true).querySelector(".news-card");
